@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bloom & Botanica</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream: #faf6f0;
+      --blush: #e8d5c4;
+      --rose: #b5616a;
+      --forest: #3d5a47;
+      --gold: #c9a84c;
+      --charcoal: #2b2b2b;
+      --light-text: #6b6560;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Jost', sans-serif;
+      background-color: var(--cream);
+      color: var(--charcoal);
+      font-size: 16px;
+      line-height: 1.8;
+    }
+
+    /* ── NAVBAR ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(250, 246, 240, 0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--blush);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+
+    .nav-brand {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-style: italic;
+      color: var(--rose);
+      letter-spacing: 0.04em;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 0.2rem;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--charcoal);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.4rem 0.75rem;
+      border-radius: 2px;
+      transition: color 0.2s, background 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--rose);
+      background: rgba(181,97,106,0.07);
+    }
+
+    /* ── HERO ── */
+    #home {
+      min-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 4rem 2rem;
+      background: linear-gradient(160deg, #fdf9f4 0%, #f3e8dc 60%, #e8d5c4 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    #home::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 70% 30%, rgba(201,168,76,0.12) 0%, transparent 60%),
+                  radial-gradient(ellipse at 20% 80%, rgba(181,97,106,0.1) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .hero-tag {
+      font-size: 0.7rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.2rem;
+      font-weight: 500;
+    }
+
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3.5rem, 8vw, 7rem);
+      font-weight: 300;
+      line-height: 1.05;
+      color: var(--charcoal);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-title em {
+      color: var(--rose);
+      font-style: italic;
+    }
+
+    .hero-sub {
+      max-width: 520px;
+      color: var(--light-text);
+      font-weight: 300;
+      font-size: 1.05rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-btn {
+      display: inline-block;
+      padding: 0.8rem 2.2rem;
+      border: 1.5px solid var(--rose);
+      color: var(--rose);
+      text-decoration: none;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      font-weight: 500;
+      transition: background 0.25s, color 0.25s;
+      border-radius: 2px;
+    }
+
+    .hero-btn:hover {
+      background: var(--rose);
+      color: #fff;
+    }
+
+    /* ── SECTIONS ── */
+    section {
+      padding: 6rem 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 300;
+      line-height: 1.15;
+      margin-bottom: 3rem;
+      color: var(--charcoal);
+    }
+
+    .section-title em {
+      font-style: italic;
+      color: var(--rose);
+    }
+
+    .flower-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem 4rem;
+      align-items: start;
+    }
+
+    .flower-grid.reverse { direction: rtl; }
+    .flower-grid.reverse > * { direction: ltr; }
+
+    /* ── IMAGE ── */
+    .flower-img-wrap {
+      position: relative;
+      width: 100%;
+      padding-top: 100%;
+      overflow: hidden;
+      border-radius: 4px;
+      cursor: zoom-in;
+    }
+
+    .flower-img-wrap img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.4s;
+      filter: saturate(0.9);
+    }
+
+    .flower-img-wrap:hover img {
+      transform: scale(1.06);
+      filter: saturate(1.1);
+    }
+
+    .flower-img-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      box-shadow: inset 0 0 0 1px rgba(0,0,0,0.06);
+      border-radius: 4px;
+      pointer-events: none;
+    }
+
+    .flower-img-wrap {
+      box-shadow: 0 8px 32px rgba(43,43,43,0.13), 0 2px 8px rgba(43,43,43,0.07);
+    }
+
+    /* ── TEXT ── */
+    .flower-text p {
+      color: var(--light-text);
+      font-weight: 300;
+      margin-bottom: 1.2rem;
+      font-size: 1.01rem;
+    }
+
+    .divider {
+      border: none;
+      border-top: 1px solid var(--blush);
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    /* ── ABOUT ── */
+    #about {
+      background: linear-gradient(135deg, var(--forest) 0%, #2a3d31 100%);
+      max-width: 100%;
+      padding: 6rem 2rem;
+      color: #d6e8db;
+    }
+
+    #about .inner {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    #about .section-label { color: rgba(201,168,76,0.85); }
+
+    #about .section-title {
+      color: #f0f7f2;
+    }
+
+    #about .section-title em { color: #a8d4b4; }
+
+    #about p {
+      font-weight: 300;
+      font-size: 1.05rem;
+      line-height: 1.9;
+      color: rgba(214,232,219,0.85);
+      margin-bottom: 1.2rem;
+    }
+
+    /* ── CONTACT ── */
+    #contact { max-width: 700px; }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .form-group label {
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--light-text);
+      font-weight: 500;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      padding: 0.85rem 1rem;
+      border: 1.5px solid var(--blush);
+      border-radius: 3px;
+      background: #fff;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.95rem;
+      color: var(--charcoal);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      border-color: var(--rose);
+    }
+
+    .form-group textarea { resize: vertical; min-height: 140px; }
+
+    .submit-btn {
+      align-self: flex-start;
+      padding: 0.9rem 2.5rem;
+      background: var(--rose);
+      color: #fff;
+      border: none;
+      border-radius: 3px;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .submit-btn:hover { background: #9e4f57; transform: translateY(-1px); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--charcoal);
+      color: rgba(255,255,255,0.45);
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+    }
+
+    footer span { color: var(--rose); }
+
+    /* ── SCROLL TO TOP ── */
+    #scrollTop {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 46px;
+      height: 46px;
+      background: var(--rose);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      cursor: pointer;
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.3s, transform 0.3s;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 16px rgba(181,97,106,0.35);
+    }
+
+    #scrollTop.visible { opacity: 1; transform: translateY(0); }
+    #scrollTop:hover { background: #9e4f57; }
+
+    /* ── LIGHTBOX ── */
+    #lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(20,14,10,0.88);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      backdrop-filter: blur(6px);
+    }
+
+    #lightbox.open { display: flex; }
+
+    #lightbox img {
+      max-width: 85vw;
+      max-height: 85vh;
+      object-fit: contain;
+      border-radius: 4px;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+      animation: lbIn 0.3s ease;
+    }
+
+    @keyframes lbIn {
+      from { opacity: 0; transform: scale(0.93); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+
+    #lbClose {
+      position: fixed;
+      top: 1.5rem;
+      right: 1.8rem;
+      color: rgba(255,255,255,0.75);
+      font-size: 2rem;
+      cursor: pointer;
+      background: none;
+      border: none;
+      line-height: 1;
+      transition: color 0.2s;
+    }
+
+    #lbClose:hover { color: #fff; }
+
+    /* ── LAZY LOAD ── */
+    img[data-src] { opacity: 0; transition: opacity 0.5s; }
+    img.loaded { opacity: 1; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .flower-grid { grid-template-columns: 1fr; }
+      .flower-grid.reverse { direction: ltr; }
+      .form-row { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAVBAR ── -->
+<nav>
+  <a class="nav-brand" href="#home">Bloom &amp; Botanica</a>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#roses">Roses</a></li>
+    <li><a href="#tulips">Tulips</a></li>
+    <li><a href="#lilies">Lilies</a></li>
+    <li><a href="#sunflowers">Sunflowers</a></li>
+    <li><a href="#orchids">Orchids</a></li>
+    <li><a href="#about">About Us</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ── HERO ── -->
+<div id="home" style="min-height:90vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:4rem 2rem;background:linear-gradient(160deg,#fdf9f4 0%,#f3e8dc 60%,#e8d5c4 100%);position:relative;overflow:hidden;">
+  <p class="hero-tag">Earth's most beloved blooms</p>
+  <h1 class="hero-title">Where Every Petal<br>Tells a <em>Story</em></h1>
+  <p class="hero-sub">A curated journey through the five most celebrated flowers on Earth — their origins, lore, and timeless beauty.</p>
+  <a href="#roses" class="hero-btn">Explore the Collection</a>
+</div>
+
+<!-- ── ROSES ── -->
+<section id="roses">
+  <p class="section-label">01 — Roses</p>
+  <h2 class="section-title">The <em>Rose</em></h2>
+  <div class="flower-grid">
+    <div class="flower-img-wrap">
+      <img data-src="https://images.unsplash.com/photo-1490750967868-88df5691cc6c?w=800&q=80" alt="Red Rose" />
+    </div>
+    <div class="flower-text">
+      <p>Few flowers have woven themselves so deeply into human civilization as the rose. With a history stretching back more than 35 million years — evidenced by fossil records in Colorado and Oregon — the rose was already ancient when the earliest human civilizations began cultivating it. Ancient Egyptians placed roses in tombs as sacred offerings, Greek poets enshrined them as symbols of Aphrodite, and Roman emperors filled their banquet halls with cascades of petals. By the medieval era, the rose had become the emblem of both the Virgin Mary and earthly desire, a paradox that only deepened its mystique.</p>
+      <p>Today, the rose is the world's most commercially grown flower, cultivated across every continent except Antarctica. Modern hybridization has produced over 30,000 named cultivars in virtually every color — from the classic crimson Hybrid Tea to the delicate blush of David Austin's English roses. Each color carries its own symbolism: red for passionate love, white for purity, yellow for friendship, and the rare blue rose for the unattainable. Whether climbing the walls of an English cottage or gracing a grand botanical garden, the rose remains the universal language of beauty and emotion.</p>
+    </div>
+  </div>
+</section>
+<hr class="divider" />
+
+<!-- ── TULIPS ── -->
+<section id="tulips">
+  <p class="section-label">02 — Tulips</p>
+  <h2 class="section-title">The <em>Tulip</em></h2>
+  <div class="flower-grid reverse">
+    <div class="flower-img-wrap">
+      <img data-src="https://images.unsplash.com/photo-1520763185298-1b434c919102?w=800&q=80" alt="Tulips" />
+    </div>
+    <div class="flower-text">
+      <p>The tulip's journey from the windswept steppes of Central Asia to the manicured gardens of Europe is one of history's most remarkable botanical odysseys. Wild tulips first bloomed across a vast arc stretching from Turkey to China, and it was Ottoman sultans who first elevated them to objects of reverence, cultivating thousands of varieties in the palace gardens of Constantinople. The Turkish word "tülbend," meaning turban — which the flower's shape resembles — may have given the tulip its name. By the sixteenth century, Flemish diplomat Ogier Ghiselin de Busbecq had introduced the tulip to Western Europe, setting off a craze that would culminate in one of history's most extraordinary economic episodes.</p>
+      <p>The Dutch "Tulpenwoede" or Tulip Mania of the 1630s saw single bulbs of rare broken-color varieties sell for more than the price of a grand Amsterdam canal house — making tulips the subject of the world's first recorded speculative bubble. When the market collapsed in 1637, fortunes evaporated overnight. Yet the Dutch love affair with the tulip endured: today the Netherlands exports over three billion tulip bulbs annually to more than one hundred countries. Each spring, the Keukenhof gardens near Lisse display over seven million blooms in a living tapestry that draws visitors from every corner of the globe, proving that the tulip's power to enchant is entirely undiminished.</p>
+    </div>
+  </div>
+</section>
+<hr class="divider" />
+
+<!-- ── LILIES ── -->
+<section id="lilies">
+  <p class="section-label">03 — Lilies</p>
+  <h2 class="section-title">The <em>Lily</em></h2>
+  <div class="flower-grid">
+    <div class="flower-img-wrap">
+      <img data-src="https://images.unsplash.com/photo-1490750967868-88df5691cc6c?w=800&q=80" alt="Lilies"
+        style="object-position:center;"
+      />
+    </div>
+    <div class="flower-text">
+      <p>Among the oldest cultivated flowers in human history, lilies have graced gardens, temples, and legends for more than three thousand years. Archaeological evidence places the Madonna lily (Lilium candidum) in Minoan frescoes on Crete dating to 1500 BCE, and ancient Egyptians revered it as a symbol of fertility and rebirth. In Greek mythology, the lily sprang from the milk of the goddess Hera, and it became sacred to the goddess of the hunt, Artemis. The Romans carried the lily throughout their vast empire, spreading both the flower and its symbolism of purity, majesty, and transience across the ancient world.</p>
+      <p>The lily genus Lilium comprises roughly 100 species native to the temperate regions of the Northern Hemisphere, spanning North America, Europe, and Asia. From the elegant Easter lily of florists' shops to the fiery Tiger lily of Asian mountain meadows, the family encompasses an extraordinary range of form, color, and fragrance. Japan's Lilium auratum — the gold-banded lily — was so prized in Victorian England that it sparked a collecting craze and was exported by the millions until overharvesting depleted wild populations. Today, the lily is a cornerstone of the global cut-flower trade, with the Netherlands and New Zealand leading production of the immensely popular Oriental and Asiatic hybrids that bring dramatic color and heady perfume to homes around the world.</p>
+    </div>
+  </div>
+</section>
+<hr class="divider" />
+
+<!-- ── SUNFLOWERS ── -->
+<section id="sunflowers">
+  <p class="section-label">04 — Sunflowers</p>
+  <h2 class="section-title">The <em>Sunflower</em></h2>
+  <div class="flower-grid reverse">
+    <div class="flower-img-wrap">
+      <img data-src="https://images.unsplash.com/photo-1471877325906-aee7c2240b5f?w=800&q=80" alt="Sunflowers" />
+    </div>
+    <div class="flower-text">
+      <p>Bold, radiant, and unapologetically cheerful, the sunflower (Helianthus annuus) is the botanical embodiment of optimism. Its origins lie in the Americas, where Native peoples of what is now the eastern United States began domesticating it around 3,000 BCE — making it one of North America's few indigenous crop plants. Indigenous cultures ground its seeds for flour, extracted oil for body paint and hair treatment, and used the plant's fibrous stalk for textile production. The Aztecs and Inca revered the sunflower as an earthly representation of their sun deities, crafting golden sunflower effigies worn by high priests during sacred ceremonies. Spanish conquistadors encountered it in the sixteenth century and carried seeds back to Europe, where the flower became both a garden ornament and an agricultural staple.</p>
+      <p>The sunflower's defining behavior — heliotropism, the young plant's daily east-to-west tracking of the sun — is one of nature's most poetic phenomena, driven by differential growth on either side of the stem. Once mature, the flower fixes itself facing east to attract warmth-seeking pollinators each morning. Vincent van Gogh immortalized the sunflower in a series of radiant canvases painted in Arles in 1888, cementing its status as an icon of artistic and cultural vitality. Today, Russia and Ukraine together produce nearly half the world's sunflower oil — a product essential to cuisines from the Mediterranean to South Asia — while the ornamental varieties, from the towering Mammoth to the velvety Moulin Rouge, continue to brighten gardens and bouquets worldwide.</p>
+    </div>
+  </div>
+</section>
+<hr class="divider" />
+
+<!-- ── ORCHIDS ── -->
+<section id="orchids">
+  <p class="section-label">05 — Orchids</p>
+  <h2 class="section-title">The <em>Orchid</em></h2>
+  <div class="flower-grid">
+    <div class="flower-img-wrap">
+      <img data-src="https://images.unsplash.com/photo-1566408669374-5a6d5dca1ef5?w=800&q=80" alt="Orchids" />
+    </div>
+    <div class="flower-text">
+      <p>No flower family on Earth rivals the orchid for sheer diversity, ecological ingenuity, or the passionate devotion it inspires in its admirers. With over 28,000 recognized species and more than 100,000 registered hybrids, Orchidaceae is one of the two largest families of flowering plants, found on every continent except Antarctica and in virtually every habitat from tropical rainforest to Arctic tundra. Ancient Greeks named them from "orkhis," meaning testicle, due to the shape of their underground tubers; Greek physician Dioscorides claimed various magical and medicinal properties for them. In China, Confucius wrote of orchids as emblems of virtue and scholarship, while Aztec warriors drank a mixture of the vanilla orchid and chocolate to fortify themselves for battle.</p>
+      <p>The Victorian era's obsession with orchids gave birth to "orchid fever" or orchidelirium — a phenomenon in which wealthy collectors dispatched explorers to strip rainforests of rare specimens, sometimes at the cost of lives and entire native populations of plants. The legendary orchid hunter Benedict Roezl is said to have discovered over 800 new species during his career, often selling them for staggering sums to European estates. Today, orchids have shed their reputation as the preserve of the elite: the Phalaenopsis or moth orchid, bred for ease of cultivation, has become the world's best-selling potted plant, found in supermarkets from Tokyo to Toronto. Yet the family's wild members remain among the most threatened plants on Earth, their complex relationships with specific pollinators and mycorrhizal fungi making them exquisitely sensitive to habitat disruption.</p>
+    </div>
+  </div>
+</section>
+<hr class="divider" />
+
+<!-- ── ABOUT ── -->
+<div id="about" style="background:linear-gradient(135deg,#3d5a47 0%,#2a3d31 100%);padding:6rem 2rem;">
+  <div style="max-width:800px;margin:0 auto;text-align:center;">
+    <p class="section-label" style="color:rgba(201,168,76,0.85);">Who We Are</p>
+    <h2 class="section-title" style="color:#f0f7f2;">Bloom &amp; <em style="color:#a8d4b4;">Botanica</em></h2>
+    <p style="font-weight:300;font-size:1.05rem;line-height:1.9;color:rgba(214,232,219,0.85);margin-bottom:1.2rem;">
+      Bloom &amp; Botanica was founded in 2009 by a small group of botanists, historians, and passionate amateur gardeners who shared a conviction that flowers are not merely decorative — they are living documents of human civilization. Headquartered in a converted Victorian glasshouse in Edinburgh, Scotland, our team of fourteen researchers and writers has spent more than a decade tracing the journeys of the world's most beloved blooms from their wild origins to the gardens, markets, and dining tables of the modern world. We have partnered with botanical gardens on six continents, contributed to peer-reviewed journals, and produced documentary series that have reached audiences in over forty countries.
+    </p>
+    <p style="font-weight:300;font-size:1.05rem;line-height:1.9;color:rgba(214,232,219,0.85);">
+      Our mission is beautifully simple: to deepen the world's understanding of and appreciation for flowers through rigorous scholarship, evocative storytelling, and stunning visual presentation. We believe that every petal has a past worth knowing, and every garden is a library waiting to be read. Whether through our annual Bloom &amp; Botanica symposium, our curated seed-library partnerships with indigenous communities, or the digital archive you are exploring today, we are committed to ensuring that the extraordinary history encoded in the world's flora is preserved, celebrated, and shared with generations to come.
+    </p>
+  </div>
+</div>
+
+<!-- ── CONTACT ── -->
+<section id="contact" style="max-width:700px;">
+  <p class="section-label">Get in Touch</p>
+  <h2 class="section-title">Contact <em>Us</em></h2>
+  <form class="contact-form" onsubmit="handleSubmit(event)">
+    <div class="form-row">
+      <div class="form-group">
+        <label for="fname">First Name</label>
+        <input type="text" id="fname" name="fname" placeholder="Jane" required />
+      </div>
+      <div class="form-group">
+        <label for="lname">Last Name</label>
+        <input type="text" id="lname" name="lname" placeholder="Doe" required />
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="email">Email Address</label>
+      <input type="email" id="email" name="email" placeholder="jane@example.com" required />
+    </div>
+    <div class="form-group">
+      <label for="subject">Subject</label>
+      <select id="subject" name="subject">
+        <option value="">Select a topic…</option>
+        <option>General Inquiry</option>
+        <option>Research Collaboration</option>
+        <option>Media &amp; Press</option>
+        <option>Seed Library Partnership</option>
+        <option>Other</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="message">Message</label>
+      <textarea id="message" name="message" placeholder="Tell us what's on your mind…" required></textarea>
+    </div>
+    <button type="submit" class="submit-btn">Send Message</button>
+  </form>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <p>&copy; 2025 <span>Bloom &amp; Botanica</span>. All rights reserved.</p>
+</footer>
+
+<!-- ── SCROLL TO TOP ── -->
+<button id="scrollTop" aria-label="Scroll to top">&#8679;</button>
+
+<!-- ── LIGHTBOX ── -->
+<div id="lightbox">
+  <button id="lbClose" aria-label="Close lightbox">&times;</button>
+  <img id="lbImg" src="" alt="Flower enlarged" />
+</div>
+
+<script>
+  // ── LAZY LOADING ──
+  const lazyImgs = document.querySelectorAll('img[data-src]');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const img = entry.target;
+        img.src = img.dataset.src;
+        img.onload = () => img.classList.add('loaded');
+        observer.unobserve(img);
+      }
+    });
+  }, { rootMargin: '200px' });
+  lazyImgs.forEach(img => observer.observe(img));
+
+  // ── LIGHTBOX ──
+  const lightbox = document.getElementById('lightbox');
+  const lbImg    = document.getElementById('lbImg');
+  const lbClose  = document.getElementById('lbClose');
+
+  document.querySelectorAll('.flower-img-wrap').forEach(wrap => {
+    wrap.addEventListener('click', () => {
+      const img = wrap.querySelector('img');
+      lbImg.src = img.src || img.dataset.src;
+      lbImg.alt = img.alt;
+      lightbox.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+
+  function closeLightbox() {
+    lightbox.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  lbClose.addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+  // ── SCROLL TO TOP ──
+  const scrollBtn = document.getElementById('scrollTop');
+  window.addEventListener('scroll', () => {
+    scrollBtn.classList.toggle('visible', window.scrollY > 400);
+  });
+  scrollBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+  // ── CONTACT FORM ──
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('.submit-btn');
+    btn.textContent = 'Message Sent ✓';
+    btn.style.background = '#3d5a47';
+    btn.disabled = true;
+    setTimeout(() => {
+      btn.textContent = 'Send Message';
+      btn.style.background = '';
+      btn.disabled = false;
+      e.target.reset();
+    }, 3000);
+  }
+</script>
+</body>
+</html>
